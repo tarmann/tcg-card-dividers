@@ -1,6 +1,6 @@
-# One Piece Card Divider Generator
+# TCG Card Dividers
 
-This project is a web-based tool for generating printable card dividers for the One Piece Card Game. It allows you to easily create dividers for all main expansions and starter decks, with support for color-coding and custom set names.
+This project is a web-based tool for generating printable card dividers for trading card games (TCGs). It allows you to easily create dividers for all main expansions and starter decks, with support for color-coding and custom set names.
 
 ## Features
 
@@ -9,12 +9,12 @@ This project is a web-based tool for generating printable card dividers for the 
 - **Fold Line:** Each divider includes a fold line for easy folding.
 - **Color Stripes:** If a color (or multiple colors) is specified, colored stripes appear on the right side of the divider name.
 - **Modern UI:** Clean, user-friendly interface for editing and printing.
-- **All Expansions Included:** Includes all One Piece expansions up to OP12 and all starter decks by default.
+- **All Expansions Included:** Includes all One Piece expansions up to OP12 and all starter decks by default (can be customized for any TCG).
 
 ## Usage
 
 1. **Open `index.html` in your browser.**
-2. The editor will show a list of all One Piece expansions and starter decks. You can edit, add, or remove lines as needed.
+2. The editor will show a list of all expansions and starter decks. You can edit, add, or remove lines as needed.
 3. Each line should follow this format:
    - `Set ID; Set Name; Colors (optional)`
    - Example: `OP01; Romance Dawn` or `ST10; The Three Captains; Red/Purple`
