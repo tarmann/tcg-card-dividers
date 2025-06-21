@@ -111,11 +111,15 @@
       box-shadow: none;
     }
     .divider-color-stripe {
-      width: 0.7em;
+      width: 0.8em;
       height: 100%;
       display: inline-block;
-      border-right: none;
+      border-right: 2px solid #000;
       box-sizing: border-box;
+    }
+    
+    .divider-color-stripe:last-child {
+      border-right: none;
     }
 
     .editor {
@@ -202,7 +206,7 @@
           'blue': '#1e88e5',
           'green': '#43a047',
           'yellow': '#fbc02d',
-          'black': '#222',
+          'black': '#808080',
           'purple': '#8e24aa',
           'white': '#fff',
           'pink': '#d81b60',
