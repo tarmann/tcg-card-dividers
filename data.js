@@ -37,4 +37,6 @@ ST24; Jewlery Bonney; Green
 ST25; Buggy; Blue
 ST26; Monkey.D.Luffy; Purple/Black 
 ST27; Marshall D. Teach; Black
-ST28; Yamato; Green/Yellow`;
+ST28; Yamato; Green/Yellow
+EB01; Memorial Collection
+EB02; Anime 25th Collection`;
