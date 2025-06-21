@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Divider Generator</title>
+  <style>
+    #output {
+      display: none;
+    }
+
+    @media print {
+      #output {
+        display: block!important;
+      }
+      body .editor {
+        display: none;
+      }
+      #output {
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        padding: 0.5cm 0px 0px 0.5cm;
+        height: 205mm; /* A4 width */
+        width: 297mm; /* A4 height */
+        page-break-after: always;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0cm;
+        box-sizing: border-box;
+      }
+      .divider {
+        display: block;
+        margin: 0;
+      }
+      .divider-name {
+        background: #000 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    .divider {
+      width: 7cm;
+      height: 19.4cm;
+      border: 1px solid black;
+      position: relative;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    .fold-line {
+      position: absolute;
+      top: 9.7cm;
+      left: 0;
+      width: 100%;
+      height: 0;
+      border-top: 1px dashed black;
+    }
+
+    .divider-name {
+      position: absolute;
+      top: 9.7cm;
+      width: 100%;
+      height: 1.5cm;
+      text-align: left;
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0px;
+      gap: 0.5em;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .divider-main {
+      padding: 0.4em 0 0 0.4em;
+      font-size: 1.1em;
+      font-weight: bold;
+      white-space: nowrap;
+      margin-right: 0.2em;
+    }
+    .divider-sub {
+      padding: 0.6em 0 0 0.4em;
+      font-size: 0.95em;
+      font-weight: normal;
+      word-break: break-word;
+      white-space: pre-line;
+      flex: 1;
+      font-weight: bold;
+    }
+    .divider-colors {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      height: 100%;
+      margin-left: 0.3em;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: none;
+    }
+    .divider-color-stripe {
+      width: 0.7em;
+      height: 100%;
+      display: inline-block;
+      border-right: none;
+      box-sizing: border-box;
+    }
+
+    .editor {
+      max-width: 600px;
+      margin: 32px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+      padding: 32px 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .editor h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 2em;
+      font-weight: bold;
+      color: #222;
+      background: none;
+      padding: 0;
+    }
+    .editor p {
+      margin: 0 0 8px 0;
+      color: #444;
+      font-size: 1.1em;
+    }
+    .editor textarea {
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      font-size: 1em;
+      padding: 10px;
+      font-family: inherit;
+      background: #fafbfc;
+      resize: vertical;
+      min-height: 120px;
+      box-sizing: border-box;
+    }
+    .editor button {
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+      margin-bottom: 0;
+      align-self: flex-start;
+    }
+    .editor button:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="editor">
+  <h2>Card Divider Generator</h2>
+  <p>Enter one set per line: <br>
+    <b>Format:</b> <code>Set ID; Set Name; Colors (optional)</code><br>
+    <b>Examples:</b><br>
+    <code>OP01; Romance Dawn</code><br>
+    <code>ST10; The Three Captains; Red/Purple</code>
+  </p>
+  <textarea id="namesInput" placeholder="One name per line..."></textarea>
+  <br>
+  <button onclick="window.print()">Print</button>
+  </div>
+
+  <div id="output"></div>
+
+  <script src="setNames.js"></script>
+  <script>
+    // Set textarea value from setNames.js
+    window.onload = function() {
+      document.getElementById('namesInput').value = window.setNames;
+      generateDividers();
+    }
+
+    function createDividerHTML(name) {
+      const parts = name.split(';').map(p => p.trim());
+      const mainText = parts[0] || '';
+      const subText = parts[1] || '';
+      const colorText = parts[2] || '';
+      let colorStripes = '';
+      if (colorText) {
+        const colorMap = {
+          'red': '#e53935',
+          'blue': '#1e88e5',
+          'green': '#43a047',
+          'yellow': '#fbc02d',
+          'black': '#222',
+          'purple': '#8e24aa',
+          'white': '#fff',
+          'pink': '#d81b60',
+          'orange': '#fb8c00',
+          'brown': '#8d6e63',
+        };
+        const colors = colorText.split(/[\/,& ]+/).map(c => c.trim().toLowerCase()).filter(Boolean);
+        colorStripes = `<span class="divider-colors">${colors.map(color => `<span class="divider-color-stripe" style="background:${colorMap[color]||color};"></span>`).join('')}</span>`;
+      }
+      return `
+        <div class="divider">
+          <div class="fold-line"></div>
+          <div class="divider-name">
+            <span class="divider-main">${mainText}</span>
+            <span class="divider-sub">${subText}</span>
+            ${colorStripes}
+          </div>
+        </div>
+      `;
+    }
+
+    function generateDividers() {
+      const names = document.getElementById('namesInput').value.trim().split('\n').filter(n => n.trim());
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+
+      for (let i = 0; i < names.length; i += 4) {
+        const dividersHTML = names.slice(i, i + 4).map(createDividerHTML).join('');
+        const pageHTML = `<div class="page">${dividersHTML}</div>`;
+        output.insertAdjacentHTML('beforeend', pageHTML);
+      }
+    }
+
+    // Auto-generate on load with default values
+    window.onload = generateDividers;
+
+    // Generate dividers before printing
+    window.onbeforeprint = generateDividers;
+  </script>
+</body>
+</html>
