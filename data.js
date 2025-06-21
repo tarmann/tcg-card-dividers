@@ -7,10 +7,9 @@ OP05; Awakening of the New Era
 OP06; Wings of the Captain
 OP07; 500 Years in the Future
 OP08; Two Legends
-OP09; The Four Emperors
-OP10; The Grand Fleet
-OP11; Kingdoms Combined
-OP12; 3D2Y
+OP09; Emperors in the New World
+OP10; Royal Blood
+OP11; A Fist of Divine Speed
 ST01; Straw Hat Crew; Red
 ST02; Worst Generation; Green
 ST03; The Seven Warlords of the Sea; Blue

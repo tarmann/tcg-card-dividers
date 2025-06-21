@@ -188,14 +188,8 @@
 
   <div id="output"></div>
 
-  <script src="setNames.js"></script>
+  <script src="data.js"></script>
   <script>
-    // Set textarea value from setNames.js
-    window.onload = function() {
-      document.getElementById('namesInput').value = window.setNames;
-      generateDividers();
-    }
-
     function createDividerHTML(name) {
       const parts = name.split(';').map(p => p.trim());
       const mainText = parts[0] || '';
@@ -242,8 +236,13 @@
       }
     }
 
-    // Auto-generate on load with default values
-    window.onload = generateDividers;
+    // Ensure namesInput is populated after data.js loads
+    window.addEventListener('DOMContentLoaded', function() {
+      if (window.setNames) {
+        document.getElementById('namesInput').value = window.setNames;
+      }
+      generateDividers();
+    });
 
     // Generate dividers before printing
     window.onbeforeprint = generateDividers;
